@@ -76,3 +76,8 @@
     border-bottom: 0;
   }
 }
+
+.btn{
+  text-decoration:none;
+  cursor: pointer;
+}
