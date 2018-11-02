@@ -1,4 +1,4 @@
-.form-signin {
+/* .form-signin {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
@@ -29,4 +29,38 @@
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+} */
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+}
+
+.example-card {
+  width: 400px;
+  height: 220px;
 }

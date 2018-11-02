@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-title>News</mat-card-title>
+  <mat-card-subtitle>Create your news</mat-card-subtitle>
+
+  <!-- <div *ngIf="loading" style="margin-left: 45%; padding: 15px;">
+    <mat-spinner></mat-spinner>
+
+    <div style="margin-top: 20px; color: #a0a0a0;">
+      Loading report...
+    </div>
+  </div>
+
+  <div *ngIf="!loading && reportDataSource.data?.length == 0" class="flex-container"
+       style="margin-top: 20px; color: #a0a0a0;">
+    No data currently available to display
+  </div>
+
+  <mat-table *ngIf="reportDataSource.data?.length > 0" #table [dataSource]="reportDataSource">
+
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of displayedColumnsList">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox *ngIf="column.showIfNumber"
+                      (change)="column.checked = !column.checked; updateCheck(column.checked)"
+                      [disabled]="!column.checked && numOfCheckedColumns === limitCheckedColumns">
+        </mat-checkbox>
+        {{ column.name }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element[column.name] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table> -->
+</mat-card>

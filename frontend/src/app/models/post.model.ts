@@ -1,10 +1,7 @@
-export class Post {
-    constructor() {
-        this._id = '';
-        this.title = '';
-        this.description = '';
-    }
-    public _id;
-    public title;
-    public description;
+export interface Post {
+    title: string;
+    category: string;
+    date_posted: Date;
+    position: number;
+    body: string;
 }

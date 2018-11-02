@@ -1,30 +1,36 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { CommonService } from '../service/common.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
 
-  @ViewChild('addPost') addBtn: ElementRef;
+export class HomeComponent implements OnInit {
 
-  constructor(private commonService: CommonService, private router: Router) {
+  /**
+   * Whether or not the menu is opened
+   */
+  public menuOpened = false;
 
-    if (!localStorage.getItem('loggedInUser')) {
-      this.router.navigate(['/']);
-    }
+  /**
+   * Report types
+   */
+  public reports = [];
 
-    this.commonService.postEdit_Observable.subscribe(res => {
-      this.addBtn.nativeElement.click();
-    });
-
+  constructor(private router: Router) {
   }
 
-  logout() {
-    localStorage.removeItem('loggedInUser');
-    this.router.navigate(['/']);
+  ngOnInit() {
+    if (this.router.url === '/') {
+      this.router.navigate(['news']);
+    }
+  }
+
+  /**
+   * Toggles the menu
+   */
+  public toggleMenu(): void {
+    this.menuOpened = !this.menuOpened;
   }
 }

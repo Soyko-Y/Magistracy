@@ -1,0 +1,9 @@
+.report-controls-row-right {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+mat-header-cell {
+  overflow: unset;
+}

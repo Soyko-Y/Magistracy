@@ -1,48 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { RootComponent } from './root/root.component';
+import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-
+import { AboutModule } from './about/about.module';
+import { DownloadsModule } from './downloads/downloads.module';
+import { NewsModule } from './news/news.module';
+import { LoginModule } from './login/login.module';
+import { ProjectsModule } from './projects/projects.module';
 import { AppRoutingModule } from './app.routing';
-import { HomeComponent } from './home/home.component';
-import { ShowPostComponent } from './show-post/show-post.component';
-import { AddPostComponent } from './add-post/add-post.component';
-import { CommonService } from './service/common.service';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule
-} from '@angular/material';
+import { HomeModule } from './home/home.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    RootComponent,
-    LoginComponent,
-    HomeComponent,
-    ShowPostComponent,
-    AddPostComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    // BrowserAnimationsModule
+    CommonModule,
+    AboutModule,
+    DownloadsModule,
+    NewsModule,
+    ProjectsModule,
+    LoginModule,
+    HomeModule
   ],
-  providers: [CommonService],
-  bootstrap: [RootComponent]
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
