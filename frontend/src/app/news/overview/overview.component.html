@@ -1,34 +1,23 @@
-<mat-card>
-  <mat-card-title>News</mat-card-title>
-  <mat-card-subtitle>Create your news</mat-card-subtitle>
-
-  <!-- <div *ngIf="loading" style="margin-left: 45%; padding: 15px;">
-    <mat-spinner></mat-spinner>
-
-    <div style="margin-top: 20px; color: #a0a0a0;">
-      Loading report...
-    </div>
-  </div>
-
-  <div *ngIf="!loading && reportDataSource.data?.length == 0" class="flex-container"
-       style="margin-top: 20px; color: #a0a0a0;">
-    No data currently available to display
-  </div>
-
-  <mat-table *ngIf="reportDataSource.data?.length > 0" #table [dataSource]="reportDataSource">
-
-    <ng-container [matColumnDef]="column.name" *ngFor="let column of displayedColumnsList">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox *ngIf="column.showIfNumber"
-                      (change)="column.checked = !column.checked; updateCheck(column.checked)"
-                      [disabled]="!column.checked && numOfCheckedColumns === limitCheckedColumns">
-        </mat-checkbox>
-        {{ column.name }}
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element[column.name] }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table> -->
+<mat-card class="example-card" *ngFor="let article of mArticles">
+  <mat-card-header>
+    <div mat-card-avatar [ngStyle]="{'background-image': 'url(../assets/images/'+ article.source.id +'.png)'}" class="example-header-image"></div>
+    <mat-card-title class="title">{{article.title}}</mat-card-title>
+    <mat-card-subtitle>{{article.source.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image class="img-article" src={{article.urlToImage}} alt="">
+  <mat-card-content>
+    <p>
+      {{article.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="action-buttons">
+    <button mat-button color="primary">
+      <mat-icon>thumb_up_alt</mat-icon> 12 Likes</button>
+    <button mat-button color="primary">
+      <mat-icon>comment</mat-icon> Comments</button>
+    <button mat-button color="primary">
+      <mat-icon>share</mat-icon> Share</button>
+    <a mat-button color="primary" href={{article.url}} target="_blank">
+      <mat-icon>visibility</mat-icon> More</a>
+  </mat-card-actions>
 </mat-card>
