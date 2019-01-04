@@ -1,13 +1,23 @@
-.example-spacer {
-  flex: 1 1 auto;
+.spacer {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
 }
 
-.example-card{
-    margin-top: 4px;
+.content {
+    flex: 3;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.main-card{
+    margin: 10px;    
 }
 
 .example-header-image { 
-  background-size: cover;
+    background-size: cover;
 }
 
 .title{
@@ -48,3 +58,5 @@
     background-color: #3f51b5;
     color: white;
 }
+
+

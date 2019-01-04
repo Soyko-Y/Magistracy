@@ -1,90 +1,20 @@
-<mat-toolbar color="primary">
-  <button id="menu_button" mat-icon-button (click)="toggleMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
-
+<mat-toolbar color="primary">  
   <span>Magistracy project</span>
+
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <button [routerLink]="[ '/news' ]" mat-button><mat-icon mat-list-icon>assignment</mat-icon>News</button>
+    <button [routerLink]="[ '/about' ]" mat-button><mat-icon mat-list-icon>assessment</mat-icon>About</button>
+    <button [routerLink]="[ '/downloads' ]" mat-button><mat-icon mat-list-icon>monetization_on</mat-icon>Downloads</button>
+    <button [routerLink]="[ '/projects' ]" mat-button><mat-icon mat-list-icon>person</mat-icon>Projects</button>
+    <button [routerLink]="[ '/login' ]" mat-button><mat-icon mat-list-icon>exit_to_app</mat-icon>Logout</button>
+  </div>
+
 </mat-toolbar>
 
-<mat-sidenav-container class="sidebar">
-  <mat-sidenav mode="side" [opened]="menuOpened" class="menu">
-    <!-- Logged in  -->
-    <div class="menu-header">
-
-    </div>
-
-    <mat-list>
-      <!-- <h3 mat-subheader>News</h3> -->
-
-      <mat-list-item id="news" [routerLink]="[ '/news' ]" class="menu-item pointer">
-        <mat-icon mat-list-icon> assignment</mat-icon>
-        <h3 mat-line>News</h3>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-    </mat-list>
-
-    <!-- <mat-list>
-      <h3 mat-subheader>Reports</h3>
-
-      <mat-list-item [routerLink]="[ '/report/', report ]" *ngFor="let report of reports"
-                     class="menu-item pointer">
-        <mat-icon mat-list-icon>assessment</mat-icon>
-        <h3 mat-line>{{ report }}</h3>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-    </mat-list> -->
-
-    <mat-list>
-      <!-- <h3 mat-subheader>About</h3> -->
-
-      <mat-list-item id="about" [routerLink]="[ '/about' ]" class="menu-item pointer">
-        <mat-icon mat-list-icon>assessment</mat-icon>
-        <h3 mat-line>About</h3>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-    </mat-list>
-
-    <mat-list>
-      <!-- <h3 mat-subheader>Downloads</h3> -->
-
-      <mat-list-item id="downloads" [routerLink]="[ '/downloads' ]" class="menu-item pointer">
-        <mat-icon mat-list-icon>monetization_on</mat-icon>
-        <h3 mat-line>Downloads</h3>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-    </mat-list>
-
-    <mat-list>
-      <!-- <h3 mat-subheader>Site projects</h3> -->
-
-      <mat-list-item id="projects" [routerLink]="[ '/projects' ]" class="menu-item pointer">
-        <mat-icon mat-list-icon>person</mat-icon>
-        <h3 mat-line>Site projects</h3>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-
-      <mat-list-item id="logout" [routerLink]="[ '/login' ]" class="menu-item pointer">
-        <mat-icon mat-list-icon>exit_to_app</mat-icon>
-        <h3 mat-line>Logout</h3>
-      </mat-list-item>
-      
-      <mat-divider></mat-divider>
-    </mat-list>
-
-  </mat-sidenav>
-
-  <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<router-outlet></router-outlet>
 
 <mat-toolbar>
-	<span class="footer-text">
-		Something in footer
-	</span>
+  <span class="footer-text">
+    Something in footer
+  </span>
 </mat-toolbar>
