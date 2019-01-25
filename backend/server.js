@@ -1,34 +1,22 @@
-// server.js
-import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import db from './app/config/db';
-import routes from './app/routes/router';
-import controller from './app/controllers/controller';
-
+﻿require('rootpath')();
+const express = require('express');
 const app = express();
-const port = 8000;
-const mongoDB = process.env.MONGODB_URI || db.url;;
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const errorHandler = require('./app/_helpers/error-handler');
 
-// mongoose.connect(mongoDB, { useNewUrlParser: true,  useCreateIndex: true})
-mongoose.connect(mongoDB, { useNewUrlParser: true, useCreateIndex: true })
-    .then(() => {
-        console.log("Successfully connected to the database");
-    }).catch(err => {
-        console.log('Could not connect to the database. Exiting now...', err);
-        process.exit();
-    });
-mongoose.Promise = global.Promise;
-const database = mongoose.connection;
-
-database.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', routes);
+app.use(cors());
 
-app.listen(port, () => {
-    console.log('We are live on ' + port);
+// api routes
+app.use('/users', require('./app/users/users.controller'));
+
+// global error handler
+app.use(errorHandler);
+
+// start server
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const server = app.listen(port, function () {
+    console.log('Server listening on port ' + port);
 });
-
-module.exports = app;
