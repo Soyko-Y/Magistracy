@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const errorHandler = require('./app/_helpers/error-handler');
+const db = require('./app/_helpers/db');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

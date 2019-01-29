@@ -1,6 +1,6 @@
 const config = require('config.json');
 const mongoose = require('mongoose');
-const mongoDB = process.env.MONGODB_URI || config.connectionString;
+const mongoDB = process.env.MONGODB_URI || config.url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => {
         console.log("Successfully connected to the database");

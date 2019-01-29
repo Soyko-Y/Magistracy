@@ -5,13 +5,13 @@ const authorize = require('../_helpers/authorize')
 const Role = require('../_helpers/role');
 
 // routes
-router.post('/authenticate', authenticate);     // public route
-router.post('/register', register);
-router.get('/', authorize(Role.Admin), getAll); // admin only
+router.post('/authenticate', authenticate);
+router.post('/register', authorize(Role.Admin), register);
+router.get('/', authorize(Role.Admin), getAll);
 router.get('/current', getCurrent);
-router.get('/:id', authorize(), getById);       // all authenticated users
-router.put('/:id', update);
-router.delete('/:id', _delete);
+router.get('/:id', authorize(), getById);
+router.put('/:id', authorize(Role.Admin), update);
+router.delete('/:id', authorize(Role.Admin), _delete);
 
 module.exports = router;
 
@@ -41,7 +41,7 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
     const currentUser = req.user;
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
 
     // only allow admins to access other user records
     if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
