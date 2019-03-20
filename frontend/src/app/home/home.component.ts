@@ -12,7 +12,6 @@ import { User, Role } from '../_models';
 
 export class HomeComponent implements OnInit {
   currentUser: User;
-  userFromApi: User;
 
   constructor(
     private router: Router,

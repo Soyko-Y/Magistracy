@@ -1,13 +1,20 @@
-<mat-toolbar color="primary">  
-  <span>Magistracy project</span>
+<mat-toolbar color="primary">
+  <span>Magistarcy project</span>
+  <span *ngIf="isLogged">! Hello {{currentUser.firstName}} - {{currentUser.role}}!</span>
 
   <div fxFlex fxLayout fxLayoutAlign="flex-end">
-    <button [routerLink]="[ '/news' ]" mat-button><mat-icon mat-list-icon>assignment</mat-icon>News</button>
-    <button [routerLink]="[ '/about' ]" mat-button><mat-icon mat-list-icon>assessment</mat-icon>About</button>
-    <button [routerLink]="[ '/downloads' ]" mat-button><mat-icon mat-list-icon>get_app</mat-icon>Downloads</button>
-    <button [routerLink]="[ '/projects' ]" mat-button><mat-icon mat-list-icon>cast</mat-icon>Projects</button>
-    <button (click)="login()" *ngIf="!isLogged" mat-button><mat-icon mat-list-icon>account_circle</mat-icon>Login</button>
-    <button (click)="logout()" *ngIf="isLogged" mat-button><mat-icon mat-list-icon>exit_to_app</mat-icon>Logout</button>
+    <button [routerLink]="[ '/news' ]" mat-button>
+      <mat-icon mat-list-icon>assignment</mat-icon>News</button>
+    <button [routerLink]="[ '/about' ]" mat-button>
+      <mat-icon mat-list-icon>assessment</mat-icon>About</button>
+    <button [routerLink]="[ '/downloads' ]" mat-button>
+      <mat-icon mat-list-icon>get_app</mat-icon>Downloads</button>
+    <button [routerLink]="[ '/projects' ]" mat-button>
+      <mat-icon mat-list-icon>cast</mat-icon>Projects</button>
+    <button (click)="login()" *ngIf="!isLogged" mat-button>
+      <mat-icon mat-list-icon>account_circle</mat-icon>Login</button>
+    <button (click)="logout()" *ngIf="isLogged" mat-button>
+      <mat-icon mat-list-icon>exit_to_app</mat-icon>Logout</button>
   </div>
 
 </mat-toolbar>

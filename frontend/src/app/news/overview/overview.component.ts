@@ -13,7 +13,6 @@ export class OverviewComponent implements OnInit {
   mSources: Array<any>;
 
   constructor(private newsapi: NewsService) {
-    console.log('app component constructor called');
   }
 
   ngOnInit() {

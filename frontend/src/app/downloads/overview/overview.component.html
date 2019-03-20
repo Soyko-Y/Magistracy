@@ -1,4 +1,7 @@
 <mat-card>
   <mat-card-title>Downloads</mat-card-title>
   <mat-card-subtitle>Download your downloads</mat-card-subtitle>
+  <ul>
+    <li *ngFor="let download of downloads"><a href="{{download}}">{{download}}</a></li>
+  </ul>
 </mat-card>
