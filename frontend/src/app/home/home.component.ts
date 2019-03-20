@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+
+import { UserService, AuthenticationService } from '../_services';
+import { User, Role } from '../_models';
 
 @Component({
   templateUrl: './home.component.html',
@@ -7,30 +11,42 @@ import {Router} from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
+  currentUser: User;
+  userFromApi: User;
 
-  /**
-   * Whether or not the menu is opened
-   */
-  public menuOpened = false;
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.currentUser = this.authenticationService.currentUserValue;
+  }
 
-  /**
-   * Report types
-   */
-  public reports = [];
+  get isAdmin() {
+    return this.currentUser && this.currentUser.role === Role.Admin;
+  }
 
-  constructor(private router: Router) {
+  get isLogged() {
+    if (this.currentUser) {
+      return true;
+    }
+    return false;
+  }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['news']);
   }
 
   ngOnInit() {
     if (this.router.url === '/') {
       this.router.navigate(['news']);
     }
-  }
 
-  /**
-   * Toggles the menu
-   */
-  public toggleMenu(): void {
-    this.menuOpened = !this.menuOpened;
   }
 }
