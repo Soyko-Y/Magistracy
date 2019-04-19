@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService, AuthenticationService } from '../../_services';
+import { AuthenticationService, DownloadsService } from '../../_services';
 import { User, Role } from '../../_models';
-import { DownloadsService } from '../downloads.service';
 
 @Component({
   selector: 'app-overview',
@@ -12,15 +11,12 @@ import { DownloadsService } from '../downloads.service';
 
 export class OverviewComponent implements OnInit {
   currentUser: User;
-  userFromApi: User;
-  downloads;
 
   /**
    * Constructor
    */
   constructor(
-    // private downloadsService: DownloadsService,
-    private userService: UserService,
+    private downloadsService: DownloadsService,
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -30,7 +26,6 @@ export class OverviewComponent implements OnInit {
    * Angular OnInit
    */
   ngOnInit() {
-    this.downloads = this.loadDownloads();
   }
 
   isLogged() {
@@ -44,39 +39,38 @@ export class OverviewComponent implements OnInit {
     }
   }
 
-  // loadDownloads() {
-  //   if (this.isLogged() === 'admin') {
-  //     this.downloadsService.getAdminsDownloads().pipe(first()).subscribe(downloads => {
-  //       return downloads;
-  //     });
-  //   } else if (this.isLogged() === 'user') {
-  //     this.downloadsService.getUsersDownloads().pipe(first()).subscribe(downloads => {
-  //       return downloads;
-  //     });
-  //   } else {
-  //     this.downloadsService.getVisitersDownloads().pipe(first()).subscribe(downloads => {
-  //       return downloads;
-  //     });
-  //   }
-  // }
-
-  loadDownloads() {
-    if (this.isLogged() === 'admin') {
-      return [
-        'https://www.google.com/',
-        'https://yandex.by/',
-        'https://www.youtube.com/',
-      ];
-    } else if (this.isLogged() === 'user') {
-      return [
-        'https://www.google.com/',
-        'https://yandex.by/',
-      ];
-    } else {
-      return [
-        'https://www.google.com/',
-      ];
-    }
+  get isAdmin() {
+    return this.currentUser && this.currentUser.role === Role.Admin;
   }
 
+  get isUser() {
+    return this.currentUser && (this.currentUser.role === Role.Admin || this.currentUser.role === Role.User);
+  }
+
+  loadAdminsDownloads() {
+    return this.downloadsService.getAdminsDownloads()
+      .subscribe((data) => {
+        this.downloadFile(data);
+      });
+  }
+
+  loadUsersDownloads() {
+    return this.downloadsService.getUsersDownloads()
+      .subscribe((data) => {
+        this.downloadFile(data);
+      });
+  }
+
+  loadVisitersDownloads() {
+    return this.downloadsService.getVisitersDownloads()
+      .subscribe((data) => {
+        this.downloadFile(data);
+      });
+  }
+
+  downloadFile(data) {
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
 }

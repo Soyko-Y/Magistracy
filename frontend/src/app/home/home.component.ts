@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { UserService, AuthenticationService } from '../_services';
+import { AuthenticationService } from '../_services';
 import { User, Role } from '../_models';
 
 @Component({
@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService,
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -46,6 +45,5 @@ export class HomeComponent implements OnInit {
     if (this.router.url === '/') {
       this.router.navigate(['news']);
     }
-
   }
 }
