@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { OverviewComponent } from './overview/overview.component';
+import { NewsComponent } from './news.component';
 import { NewsService } from './news.service';
 import { MaterialModule } from '../material.module';
 
@@ -13,7 +13,7 @@ import { MaterialModule } from '../material.module';
     MaterialModule
   ],
   providers: [],
-  declarations: [OverviewComponent]
+  declarations: [NewsComponent]
 })
 export class NewsModule {
 }

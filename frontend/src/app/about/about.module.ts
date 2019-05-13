@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverviewComponent } from './overview/overview.component';
+import { AboutComponent } from './about.component';
 
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ import { MaterialModule } from '../material.module';
         MaterialModule
     ],
     providers: [],
-    declarations: [OverviewComponent]
+    declarations: [AboutComponent]
 })
 export class AboutModule {
 }

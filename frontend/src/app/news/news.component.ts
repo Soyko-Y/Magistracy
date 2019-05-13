@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsService } from '../news.service';
+import { NewsService } from './news.service';
 
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  selector: 'app-news',
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class NewsComponent implements OnInit {
 
   mArticles: Array<any>;
   mSources: Array<any>;

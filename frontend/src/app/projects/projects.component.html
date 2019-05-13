@@ -1,0 +1,13 @@
+<mat-toolbar color="grey">
+  <mat-toolbar-row>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end">
+      <button [routerLink]="[ 'project1' ]" mat-button>Project 1</button>
+      <button [routerLink]="[ 'project2' ]" mat-button>Project 2</button>
+      <button [routerLink]="[ 'project3' ]" mat-button>Project 3</button>
+      <!-- <button [routerLink]="[ 'project4' ]" mat-button>Project 4</button>
+      <button [routerLink]="[ 'project5' ]" mat-button>Project 5</button> -->
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

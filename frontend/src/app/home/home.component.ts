@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services';
 import { User, Role } from '../_models';

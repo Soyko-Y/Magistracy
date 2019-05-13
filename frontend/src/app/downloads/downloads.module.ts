@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverviewComponent } from './overview/overview.component';
+import { DownloadsComponent } from './downloads.component';
 
 import { RouterModule } from '@angular/router';
 import { DownloadsService } from './downloads.service';
@@ -12,7 +12,7 @@ import { MaterialModule } from '../material.module';
         MaterialModule
     ],
     providers: [],
-    declarations: [OverviewComponent]
+    declarations: [DownloadsComponent]
 })
 export class DownloadsModule {
 }

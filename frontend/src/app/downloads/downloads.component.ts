@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthenticationService, DownloadsService } from '../../_services';
-import { User, Role } from '../../_models';
+import { AuthenticationService, DownloadsService } from '../_services';
+import { User, Role } from '../_models';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  selector: 'app-downloads',
+  templateUrl: './downloads.component.html',
+  styleUrls: ['./downloads.component.css']
 })
 
-export class OverviewComponent implements OnInit {
+export class DownloadsComponent implements OnInit {
   currentUser: User;
 
-  /**
-   * Constructor
-   */
   constructor(
     private downloadsService: DownloadsService,
     private authenticationService: AuthenticationService
@@ -22,9 +19,6 @@ export class OverviewComponent implements OnInit {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
-  /**
-   * Angular OnInit
-   */
   ngOnInit() {
   }
 
