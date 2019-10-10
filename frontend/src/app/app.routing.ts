@@ -7,7 +7,12 @@ import { AboutComponent as AboutComponent } from './about/about.component';
 import { DownloadsComponent as DownloadsComponent } from './downloads/downloads.component';
 import { ProjectsComponent as ProjectsComponent } from './projects/projects.component';
 import { LoginComponent as LoginComponent } from './login/login.component';
-import { DetailComponent as ProjectsDetailComponent } from './projects/detail/detail.component';
+import { WctabletComponent as ProjectsWctabletComponent } from './projects/wctablet/wctablet.component';
+import { GstreamerComponent as ProjectsGstreamerComponent } from './projects/gstreamer/gstreamer.component';
+import { ArchitectureComponent as AboutArchitectureComponent } from './architecture/architecture.component';
+import { InstallationComponent as AboutInstallationComponent } from './installation/installation.component';
+
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,11 +23,14 @@ const routes: Routes = [
     children: [
       { path: 'news', component: NewsComponent },
       { path: 'about', component: AboutComponent },
+      { path: 'architecture', component: AboutArchitectureComponent },
+      { path: 'installation', component: AboutInstallationComponent },
       { path: 'downloads', component: DownloadsComponent },
       {
         path: 'projects', component: ProjectsComponent,
         children: [
-          { path: ':project', component: ProjectsDetailComponent },
+          { path: 'wctablet', component: ProjectsWctabletComponent },
+          { path: 'gstreamer', component: ProjectsGstreamerComponent },
         ]
       },
     ]

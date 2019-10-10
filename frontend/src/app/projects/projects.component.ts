@@ -13,7 +13,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url === '/projects') {
-      this.router.navigate(['/projects', 'project1']);
+      this.router.navigate(['/projects', 'wctablet']);
     }
   }
 }

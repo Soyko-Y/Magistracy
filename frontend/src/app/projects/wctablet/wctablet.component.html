@@ -1,0 +1,77 @@
+<div class="spacer">
+  <div class="content">
+    <mat-card class="main-card">
+      <mat-card-header>
+        <mat-card-title>Legacy OS mouse integration</mat-card-title>
+
+        <mat-card-subtitle>Problem description</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          Running old-time OS in emulator often comes with a problem of non-coinciding cursors.
+          This problem arises from the availability of two different types of cursor positioning devices:
+          ones with relative coordinates (computer mice) and ones with absolute coordinates (tablets and
+          touchscreens). Relative positioning devices provide operating system with the vector of
+          the cursor movement instead of it's new coordinates, and as a result, different cursor
+          acceleration formulas are breaking coincidence of host and guest systems cursor.
+        </p>
+
+        <p>
+          Mainstream visualization systems (including QEMU) can emulate as relative pointing devices
+          (PS/2 and serial mice), so an absolute pointing device (USB Wacom tablet in case of QEMU).
+          Mode with absolute coordinates allows host cursor to control guest OS and is called “mouse
+          integration mode” in desktop virtualization systems. But mouse integration is available only
+          if guest OS either has special driver from the virtual machine vendor, or supports USB tablet.
+          In all other situations desktop virtual machines use “mouse lock mode,” when host cursor is
+          hidden until some dedicated hotkey is pressed, and user can interact with the guest system only.
+          This mode is not only less convenient for operation, but it is usable for the web access to
+          the virtualized system. So projects providing web demonstration of old operating systems have
+          to show user two cursors moving with different speed:
+        </p>
+
+        <img alt="OS mouse integration" src="/src/assets/images/os_mouse"/>
+      </mat-card-content>
+
+      <mat-card-header>
+        <mat-card-title>Solution</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          Starting from version 1.9, QEMU implements emulation of the RS-232 Wacom tablet (wctablet)
+          as an additional character device backend. Currently it is the only virtualization system with
+          such capabilities.
+        </p>
+
+        <p>
+          Guest OS still needs drivers for such tablet, which exist for DOS, OS/2, Windows 3.x and
+          Windows 95, BeOS, Mac OS 9.x and Mac OS X, and some other systems.
+        </p>
+
+        <p>
+          You can test how this feature works with our pre-configured Windows 3.11 image – just run
+          it with the following command:
+        </p>
+
+        <code>qemu-system-i386 -m 32 -hda win311.qcow -chardev wctablet,id=wacom -serial chardev:wacom</code>
+
+        <p>
+          This ostimeline subproject was created as a hub for the information on how to find and install
+          necessary drivers for the pre-USB operating systems to achieve mouse integration.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="sidebar">
+    <mat-card class="main-card">
+      <mat-card-header>
+        <mat-card-title class="title">Partners</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image src="http://www.bstu.by/uploads/images/bstu_logo.png" alt="BSTU image">
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

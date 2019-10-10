@@ -6,8 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { AboutModule } from './about/about.module';
+import { ArchitectureModule } from './architecture/architecture.module';
+import { InstallationModule } from './installation/installation.module';
 import { DownloadsModule } from './downloads/downloads.module';
 import { NewsModule } from './news/news.module';
 import { LoginModule } from './login/login.module';
@@ -25,6 +26,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     FlexLayoutModule,
     CommonModule,
     AboutModule,
+    ArchitectureModule,
+    InstallationModule,
     DownloadsModule,
     NewsModule,
     ProjectsModule,

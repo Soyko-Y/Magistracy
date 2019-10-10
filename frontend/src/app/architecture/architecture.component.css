@@ -1,0 +1,21 @@
+.spacer {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    flex: 3;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.main-card {
+    margin: 10px;    
+}
+
+.title{
+    font-weight: bold;
+}

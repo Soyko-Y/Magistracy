@@ -1,28 +1,44 @@
-<mat-toolbar color="primary">
-  <span>Magistarcy project</span>
-  <span *ngIf="isLogged">! Hello {{currentUser.firstName}} - {{currentUser.role}}!</span>
+<div class="container" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-toolbar color="primary" fxFlex="64px">
+    <span>Ostimeline</span>
+    <span *ngIf="isLogged">! Hello {{currentUser.firstName}} - {{currentUser.role}}!</span>
 
-  <div fxFlex fxLayout fxLayoutAlign="flex-end">
-    <button [routerLink]="[ '/news' ]" mat-button>
-      <mat-icon mat-list-icon>assignment</mat-icon>News</button>
-    <button [routerLink]="[ '/about' ]" mat-button>
-      <mat-icon mat-list-icon>assessment</mat-icon>About</button>
-    <button [routerLink]="[ '/downloads' ]" mat-button>
-      <mat-icon mat-list-icon>get_app</mat-icon>Downloads</button>
-    <button [routerLink]="[ '/projects' ]" mat-button>
-      <mat-icon mat-list-icon>cast</mat-icon>Projects</button>
-    <button (click)="login()" *ngIf="!isLogged" mat-button>
-      <mat-icon mat-list-icon>account_circle</mat-icon>Login</button>
-    <button (click)="logout()" *ngIf="isLogged" mat-button>
-      <mat-icon mat-list-icon>exit_to_app</mat-icon>Logout</button>
-  </div>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end">
+      <button [routerLink]="[ '/news' ]" mat-button>
+        <mat-icon mat-list-icon>assignment</mat-icon>News
+      </button>
+      <button mat-button [matMenuTriggerFor]="about">
+        <mat-icon mat-list-icon>assessment</mat-icon>About
+      </button>
+      <mat-menu #about="matMenu">
+        <button mat-menu-item [routerLink]="[ '/about' ]">About ostimeline</button>
+        <button mat-menu-item [routerLink]="[ '/architecture' ]">Architecture</button>
+        <button mat-menu-item [routerLink]="[ '/installation' ]">Installation</button>
+      </mat-menu>
+      <button [routerLink]="[ '/downloads' ]" mat-button>
+        <mat-icon mat-list-icon>get_app</mat-icon>Downloads
+      </button>
+      <button [routerLink]="[ '/projects' ]" mat-button>
+        <mat-icon mat-list-icon>cast</mat-icon>Projects
+      </button>
+      <button (click)="login()" *ngIf="!isLogged" mat-button>
+        <mat-icon mat-list-icon>account_circle</mat-icon>Login
+      </button>
+      <button (click)="logout()" *ngIf="isLogged" mat-button>
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>Logout
+      </button>
+    </div>
 
-</mat-toolbar>
+  </mat-toolbar>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
-<mat-toolbar>
-  <span class="footer-text">
-    Something in footer
-  </span>
-</mat-toolbar>
+  <div class="helper" fxFlex fxFlexFill></div>
+
+  <mat-toolbar class="footer" fxLayout="column" fxLayoutAlign="end center">
+    <span class="footer-text">
+      Soiko Yury<br>
+      E-mail: puma10009@gmail.com
+    </span>
+  </mat-toolbar>
+</div>
