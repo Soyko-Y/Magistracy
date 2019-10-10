@@ -1,4 +1,4 @@
 ﻿{
     "secret": "ABRAKADABRA",
-    "url": "mongodb://localhost:27017/blogDb"
+    "url": "mongodb+srv://Admin:admin@cluster0-sud9h.mongodb.net/test?retryWrites=true&w=majority"
 }
