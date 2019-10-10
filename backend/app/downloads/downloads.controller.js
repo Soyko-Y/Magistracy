@@ -1,29 +1,22 @@
 const express = require('express');
 const authorize = require('../_helpers/authorize');
-const downloadsService = require('./downloads.service');
 const Role = require('../_helpers/role');
 const router = express.Router();
 
-router.get('/adminsDownloads', authorize(Role.Admin), getAdminsDownloads);
-router.get('/usersDownloads', authorize(), getUsersDownloads);
-router.get('/visitersDownloads', getVisitersDownloads);
+// router.get('/adminsDownloads', authorize(Role.Admin), getAdminsDownloads);
+// router.get('/usersDownloads', authorize(), getUsersDownloads);
+router.get('/:file(*)', getDownload);
 
 module.exports = router;
 
-function getAdminsDownloads(req, res, next) {
-    downloadsService.getAdminsDownloads()
-        .then(download => res.download(download))
-        .catch(err => next(err));
-}
+const filesLocation = '/home/dev/Downloads/';
 
-function getUsersDownloads(req, res, next) {
-    downloadsService.getUsersDownloads()
-        .then(download => res.download(download))
-        .catch(err => next(err));
-}
-
-function getVisitersDownloads(req, res, next) {
-    downloadsService.getVisitersDownloads()
-        .then(download => res.download(download))
-        .catch(err => next(err));
+function getDownload(req, res) {
+    const file = req.params.file + '.7z';
+    const fileLocation = filesLocation + file;
+    res.download(fileLocation, file, function (err) {
+        if (err) {
+          console.log(err);
+        }
+    });
 }
