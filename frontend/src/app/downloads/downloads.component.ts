@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthenticationService, DownloadsService } from '../_services';
+import { AuthenticationService } from '../_services';
 import { User, Role } from '../_models';
 
 @Component({
@@ -11,9 +11,9 @@ import { User, Role } from '../_models';
 
 export class DownloadsComponent implements OnInit {
   currentUser: User;
+  private apiUrl = 'http://localhost:4000/downloads/';
 
   constructor(
-    private downloadsService: DownloadsService,
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -41,30 +41,16 @@ export class DownloadsComponent implements OnInit {
     return this.currentUser && (this.currentUser.role === Role.Admin || this.currentUser.role === Role.User);
   }
 
-  loadAdminsDownloads() {
-    return this.downloadsService.getAdminsDownloads()
-      .subscribe((data) => {
-        this.downloadFile(data);
-      });
+  downloadDemo() {
+    window.open(this.apiUrl + 'demo');
   }
 
-  loadUsersDownloads() {
-    return this.downloadsService.getUsersDownloads()
-      .subscribe((data) => {
-        this.downloadFile(data);
-      });
+
+  downloadOstimeline() {
+    window.open(this.apiUrl + 'ostimeline');
   }
 
-  loadVisitersDownloads() {
-    return this.downloadsService.getVisitersDownloads()
-      .subscribe((data) => {
-        this.downloadFile(data);
-      });
-  }
-
-  downloadFile(data) {
-    const blob = new Blob([data], { type: 'application/octet-stream' });
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
+  downloadLovelyGrayButtons() {
+    window.open(this.apiUrl + 'lovelygraybuttons');
   }
 }

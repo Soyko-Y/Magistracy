@@ -3,16 +3,20 @@
     <mat-card class="main-card">
       <mat-card-header>
         <mat-card-title>Downloads</mat-card-title>
-        <mat-card-subtitle>Download your downloads</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
-        <button *ngIf="isAdmin" (click)="loadAdminsDownloads()" mat-button>
-          <mat-icon mat-list-icon>get_app</mat-icon>Admins download</button>
-        <button *ngIf="isUser" (click)="loadUsersDownloads()" mat-button>
-          <mat-icon mat-list-icon>get_app</mat-icon>Users downloads</button>
-        <button (click)="loadVisitersDownloads()" mat-button>
-          <mat-icon mat-list-icon>get_app</mat-icon>Visiters downloads</button>
+        <!-- <button *ngIf="isAdmin" (click)="loadAdminsDownloads()" mat-button>
+          <mat-icon mat-list-icon>get_app</mat-icon>Admins download</button> -->
+        <button (click)="downloadDemo()" mat-button>
+          <mat-icon mat-list-icon>get_app</mat-icon>Demo
+        </button>
+        <button (click)="downloadOstimeline()" mat-button>
+          <mat-icon mat-list-icon>get_app</mat-icon>Ostimeline
+        </button>
+        <button (click)="downloadLovelyGrayButtons()" mat-button>
+          <mat-icon mat-list-icon>get_app</mat-icon>Lovely gray buttons
+        </button>
       </mat-card-content>
     </mat-card>
   </div>
