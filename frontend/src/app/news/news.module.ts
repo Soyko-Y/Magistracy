@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { NewsComponent } from './news.component';
-import { NewsService } from './news.service';
 import { MaterialModule } from '../material.module';
 
 @NgModule({

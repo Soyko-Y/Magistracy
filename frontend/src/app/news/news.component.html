@@ -1,27 +1,34 @@
 <div class="spacer">
   <div class="content">
-    <mat-card class="main-card" *ngFor="let article of mArticles">
+    <mat-card class="main-card">
       <mat-card-header>
-        <div mat-card-avatar [ngStyle]="{'background-image': 'url(../assets/images/'+ article.source.id +'.png)'}" class="example-header-image"></div>
-        <mat-card-title class="title">{{article.title}}</mat-card-title>
-        <mat-card-subtitle>{{article.source.name}}</mat-card-subtitle>
+        <mat-card-title>Lovely gray buttons demo</mat-card-title>
       </mat-card-header>
-      <img mat-card-image class="img-article" src={{article.urlToImage}} alt="">
       <mat-card-content>
-        <p>
-          {{article.description}}
-        </p>
+        Our 1st demo to appear on the renewed website is "Lovey Gray Buttons" - the open-source history
+        of widgets with snippets of code. It shows 30 years of the widget toolkits evolution, and it is
+        easy to present because more than 90% of historically significant widget toolkits have open
+        source versions now. Following topics (including widgets demo and simple source code comparison)
+        are covered in this timeline: first widgets of the 198x (Apple Lisa, early Unix GUI - Andrew
+        Toolkit and Project Athena, OpenLook and Motif, main non-Unix toolkits - WinAPI and NextSTEP),
+        toolkits of 199x (Intuition widget set from Amiga, TCL/TK, MFC and Java AWT wrapper toolkits,
+        main Linux widget libraries - GTK+ and QT, Java Swing), Visual theming in 199x and 200x (initial
+        raise of customization engines, architecture and visual styles from the second half of 1990s,
+        Post-Y2K styles - Apple Cocoa, Java Desktop & Nimbus, KDE Oxygen, etc.).
       </mat-card-content>
-      <mat-card-actions class="action-buttons">
-        <button mat-button color="primary">
-          <mat-icon>thumb_up_alt</mat-icon> 12 Likes</button>
-        <button mat-button color="primary">
-          <mat-icon>comment</mat-icon> Comments</button>
-        <button mat-button color="primary">
-          <mat-icon>share</mat-icon> Share</button>
-        <a mat-button color="primary" href={{article.url}} target="_blank">
-          <mat-icon>visibility</mat-icon> More</a>
-      </mat-card-actions>
+    </mat-card>
+    
+    <mat-card class="main-card">
+      <mat-card-header>
+        <mat-card-title>16th free/libre software developers conference</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        We are presenting ostimeline project on the 16th free/libre software developers conference
+        (<a
+          href="https://www.basealt.ru/about/news/archive/view/shestnadcataja-konferencija-razrabotchikov-svobodnykh-pro">OSSDevConf</a>)
+        which will take place in Kaluga (Russia) on September 27-29 2019
+      </mat-card-content>
     </mat-card>
   </div>
 
