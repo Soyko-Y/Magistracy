@@ -11,7 +11,7 @@ import { User, Role } from '../_models';
 
 export class DownloadsComponent implements OnInit {
   currentUser: User;
-  private apiUrl = 'http://localhost:4000/downloads/';
+  private apiUrl = 'http://ostimeline.org:4000/downloads/';
 
   constructor(
     private authenticationService: AuthenticationService

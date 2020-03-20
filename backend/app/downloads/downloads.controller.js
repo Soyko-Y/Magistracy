@@ -9,7 +9,7 @@ router.get('/:file(*)', getDownload);
 
 module.exports = router;
 
-const filesLocation = '/home/dev/Downloads/';
+const filesLocation = '/home/yura/archives/';
 
 function getDownload(req, res) {
     const file = req.params.file + '.7z';
