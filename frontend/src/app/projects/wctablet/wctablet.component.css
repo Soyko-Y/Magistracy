@@ -59,4 +59,15 @@
     color: white;
 }
 
+li > ol {
+    list-style-type: none; /* Убираем исходные маркеры */
+    counter-reset:  item; /* Обнуляем счетчик списка */
+}
+li > ol li:before {
+    content: counter(item) ') '; /* Добавляем к числам скобку */
+    counter-increment: item; /* Задаём имя счетчика */
+}
 
+li, img {
+    margin-bottom: 1em;
+}

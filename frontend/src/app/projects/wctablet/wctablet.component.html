@@ -2,6 +2,143 @@
   <div class="content">
     <mat-card class="main-card">
       <mat-card-header>
+        <mat-card-title>QEMU and mouse integration in Windows 3.x</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          Special wctablet serial device supported by QEMU is able to bring mouse integration in the
+          same way as “-usb-device tablet” (old way) and “-usb -device usb-tablet” (new way) do.
+        </p>
+
+        <p>
+          The following steps are needed to get mouse integration with Windows 3.x running in QEMU:
+        </p>
+
+        <ol>
+          <li>
+            You will need to install a driver for the Wacom PenPartner serial tabled. You can download
+            the driver installation CD
+            <a
+              href="https://ia800107.us.archive.org/16/items/Wacom_Pen_Partner_Version_2.50_WACOM_1997/Wacom%20Pen%20Partner%20%28Version%202.50%29%28WACOM%29%281997%29.iso">here</a>
+          </li>
+
+          <li>
+            Now you have to make files from this CD visible to the guest operating system.
+            <p>
+              A) If your Windows 3.x installation already has CD-ROM drivers, you can simply add
+              <code>“-cdrom &lt;image.iso&gt;”</code>to the QEMU command line. If that-s not your case, adding CD-ROM
+              DOS drivers
+              is rather tricky, so it may be easier to follow the plan B:
+            </p>
+
+            <p>
+              B) If you have no CD-ROM driver installed, it may be easier to mount your hard drive image to
+              the host operating system and copy needed files from there. Following steps will mount your
+              QCOW image to your host filesystem:<br>
+            </p>
+
+            <ol>
+              <li>
+                turn on NDB support:<br>
+                <code>sudo modprobe nbd max_part=8</code>
+              </li>
+
+
+              <li>
+                attach your image as an NDB device:<br>
+                <code>sudo qemu-nbd --connect=/dev/nbd0 &lt;image.qcow&gt;</code>
+              </li>
+
+              <li>
+                look at the partition table of your image to find which partition to mount:<br>
+                <code>sudo fdisk /dev/nbd0 -l</code>
+              </li>
+
+              <img alt="Terminal" src="/src/assets/images/wctabletTerminal.png" width="700"/>
+
+              <li>
+                mount the needed partition to your host filesystem
+                (let’s suppose you are mounting your 1st partition to /mnt/):
+                <code>sudo mount /dev/nbd0p1 /mnt/</code>
+              </li>
+
+
+              <li>
+                copy files from the downloaded CD into your image. You can “unpack” ISO images
+                as archive. If you would like to save space, copy everything but the COREL folder
+                (the one which has nothing to do with the driver but is about 500 Mb in size).
+              </li>
+
+
+              <li>
+                Unmount the image and detach it from the NBD:<br>
+                <code>sudo umount /dev/nbd0p1</code>
+                <code>sudo qemu-nbd --disconnect /dev/nbd0</code>
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <ol start="3">
+          <li>
+            Run your virtual machine with two additional parameters. The first one will create
+            a special character device with some arbitrary name you (e.g. “mywctablet1”).
+            The second one will attach this character device to your serial (COM) port:<br>
+            <code>qemu-system-i386 -m 32 -hda image.qcow -chardev wctablet,id=mywctablet1 -serial chardev:mywctablet1</code><br>
+            <p><b>Note:</b> don’t forget to add “<code>-cdrom &lt;image.iso&gt;</code>” to the
+              QEMU command line if you will read driver from CD</p>
+          </li>
+
+          <li>
+            QEMU will use the new wctablet device to control your pointer, but Windows knows
+            nothing about it yet. So go to QEMU Monitor and switch your pointing device to mouse:<br><br>
+            <ol>
+              <li>
+                Press Ctrl + Alt + 2, to go into the monitor:<br><br>
+
+                <img alt="wctablet Terminal QEMU" src="/src/assets/images/wctabletTerminalQemu.png"/>
+              </li>
+
+              <li>
+                Enter the “mouse_set 3” command to use ps/2 mouse (two other devices are your tablet and your keyboard).
+              </li>
+
+              <li>
+                Press Ctrl + Alt + 1 to switch back to your GUEST screen from QEMU monitor.
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <ol start="5">
+          <li>
+            When Windows have been booted, open the needed folder in a file manager:<br><br>
+
+            <img alt="QEMU File Manager" src="/src/assets/images/qemuFileManager.png"/>
+          </li>
+
+          <li>
+            Run <code>setup.exe</code> and follow the instructions:<br><br>
+
+            <img alt="QEMU Wacom Setup 1" src="/src/assets/images/qemuWacomSetup1.png"/>
+            <img alt="QEMU Wacom Setup 2" src="/src/assets/images/qemuWacomSetup2.png"/>
+          </li>
+
+          <li>
+            Reboot your system when the driver installation is finished.
+          </li>
+
+          <li>
+            Now you will have mouse integration each time when you run your virtual machine as follows:<br>
+            <code>qemu-system-i386 -m 32 -hda image.qcow -chardev<br> wctablet,id=somename -serial chardev:somename</code>
+          </li>
+        </ol>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="main-card">
+      <mat-card-header>
         <mat-card-title>Legacy OS mouse integration</mat-card-title>
 
         <mat-card-subtitle>Problem description</mat-card-subtitle>
@@ -30,7 +167,7 @@
           to show user two cursors moving with different speed:
         </p>
 
-        <img alt="OS mouse integration" src="/assets/images/os_mouse"/>
+        <img alt="OS mouse integration" src="/src/assets/images/os_mouse"/>
       </mat-card-content>
 
       <mat-card-header>
