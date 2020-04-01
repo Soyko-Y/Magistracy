@@ -2,6 +2,81 @@
   <div class="content">
     <mat-card class="main-card">
       <mat-card-header>
+        <mat-card-title>QEMU and mouse integration in Windows 95 and Windows 95 OSR2</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          Special wctablet serial device supported by QEMU is able to bring mouse integration in the
+          same way as “-usb-device tablet” (old way) and “-usb -device usb-tablet” (new way) do.
+        </p>
+
+        <p><b>Note:</b> It was noticed, that under QEMU 2.11 Windows 95 with serial tablet hangs and
+          thus doesn’t work. In earlier and later versions everything is working. Windows 95 OSR2 works
+          with mouse integration in all tested versions.</p>
+
+        <p>
+          <b>The following steps are needed to get mouse integration with Windows 95 and Windows 95 OSR2 running in
+            QEMU:</b>
+        </p>
+
+        <ol>
+          <li>
+            You will need to install a driver for the Wacom PenPartner serial tabled. You can download
+            the driver installation CD
+            <a
+              href="https://ia800107.us.archive.org/16/items/Wacom_Pen_Partner_Version_2.50_WACOM_1997/Wacom%20Pen%20Partner%20%28Version%202.50%29%28WACOM%29%281997%29.iso">here</a>
+          </li>
+
+          <li>
+            Run your virtual machine with the downloaded ISO image in addition to your HDD image with Windows,
+            and add two additional command line parameters. The first one will create a special character device
+            with some arbitrary name you (e.g. “mywctablet1”). The second one will attach this character device
+            to your serial (COM) port:
+            <p><code>qemu-system-i386 -m 32 -hda image.qcow -cdrom Wacom\ Pen\ Partner\ \(Version\ 2.50\)\(WACOM\)\(1
+              997\).iso -chardev wctablet,id=somename -serial chardev:somename</code></p>
+          </li>
+
+          <li>
+            QEMU will use the new wctablet device to control your pointer, but Windows knows nothing about it yet.
+            So use your keyboard (Tab, arrow keys and Enter) for navigaton. Open the needed folder in a file manager,
+            run Setup.exe and proceed with the installation as follows:
+
+            <img alt="qemuCdrom" src="/assets/images/wctabletQemuCdrom1.png" width="700" />
+            
+            <img alt="wacomSetup" src="/assets/images/wctabletWacomSetup1.png" width="700" />
+
+            <p>Now select <b>“Tablet Only”</b> (you may just press the <b>“O”</b> key to make it selected):</p>
+
+            <img alt="wacomSetupTablet" src="/assets/images/wctabletWacomSetupTablet.png" width="700" />
+            
+            <img alt="wacomSetupSuccessful" src="/assets/images/wctabletWacomSetupSuccessful1.png" width="700" />
+          </li>
+
+          <li>
+            Now there is one more step, which is needed only for Windows 95 (Windows 95 OSR2 works OK without it).
+            When the installation is finished, you should close the installer and run it once again
+            (otherwise driver may not work after reboot): 
+
+            <img alt="qemuCdrom" src="/assets/images/wctabletQemuCdrom2.png" width="700" />
+            
+            <img alt="wacomSetup" src="/assets/images/wctabletWacomSetup2.png" width="700" />
+            
+            <img alt="wacomSetupSuccessful" src="/assets/images/wctabletWacomSetupSuccessful2.png" width="700" />
+
+            <p>Now when you press “OK”, the Windows will restart and the driver will work. </p>
+          </li>
+
+          <li>
+            You will have mouse integration each time when you run your virtual machine as follows:
+            <p><code>qemu-system-i386 -m 32 -hda &#123;guest_system_img&#125; -chardev wctablet,id=somename -serial chardev:somename</code></p>
+          </li>
+        </ol>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="main-card">
+      <mat-card-header>
         <mat-card-title>QEMU and mouse integration in Windows 3.x</mat-card-title>
       </mat-card-header>
 
@@ -12,7 +87,7 @@
         </p>
 
         <p>
-          The following steps are needed to get mouse integration with Windows 3.x running in QEMU:
+          <b>The following steps are needed to get mouse integration with Windows 3.x running in QEMU:</b>
         </p>
 
         <ol>
@@ -35,32 +110,32 @@
             <p>
               B) If you have no CD-ROM driver installed, it may be easier to mount your hard drive image to
               the host operating system and copy needed files from there. Following steps will mount your
-              QCOW image to your host filesystem:<br>
+              QCOW image to your host filesystem:
             </p>
 
             <ol>
               <li>
-                turn on NDB support:<br>
-                <code>sudo modprobe nbd max_part=8</code>
+                turn on NDB support:
+                <p><code>sudo modprobe nbd max_part=8</code></p>
               </li>
 
 
               <li>
-                attach your image as an NDB device:<br>
-                <code>sudo qemu-nbd --connect=/dev/nbd0 &lt;image.qcow&gt;</code>
+                attach your image as an NDB device:
+                <p><code>sudo qemu-nbd --connect=/dev/nbd0 &lt;image.qcow&gt;</code></p>
               </li>
 
               <li>
-                look at the partition table of your image to find which partition to mount:<br>
-                <code>sudo fdisk /dev/nbd0 -l</code>
+                look at the partition table of your image to find which partition to mount:
+                <p><code>sudo fdisk /dev/nbd0 -l</code></p>
               </li>
 
-              <img alt="Terminal" src="/assets/images/wctabletTerminal.png" width="700"/>
+              <img alt="Terminal" src="/assets/images/wctabletTerminal.png" width="700" />
 
               <li>
                 mount the needed partition to your host filesystem
                 (let’s suppose you are mounting your 1st partition to /mnt/):
-                <code>sudo mount /dev/nbd0p1 /mnt/</code>
+                <p><code>sudo mount /dev/nbd0p1 /mnt/</code></p>
               </li>
 
 
@@ -72,9 +147,9 @@
 
 
               <li>
-                Unmount the image and detach it from the NBD:<br>
-                <code>sudo umount /dev/nbd0p1</code><br>
-                <code>sudo qemu-nbd --disconnect /dev/nbd0</code>
+                Unmount the image and detach it from the NBD:
+                <p><code>sudo umount /dev/nbd0p1</code><br>
+                <code>sudo qemu-nbd --disconnect /dev/nbd0</code></p>
               </li>
             </ol>
           </li>
@@ -84,20 +159,20 @@
           <li>
             Run your virtual machine with two additional parameters. The first one will create
             a special character device with some arbitrary name you (e.g. “mywctablet1”).
-            The second one will attach this character device to your serial (COM) port:<br>
-            <code>qemu-system-i386 -m 32 -hda image.qcow -chardev wctablet,id=mywctablet1 -serial chardev:mywctablet1</code><br>
+            The second one will attach this character device to your serial (COM) port:
+            <p><code>qemu-system-i386 -m 32 -hda image.qcow -chardev wctablet,id=mywctablet1 -serial chardev:mywctablet1</code></p>
             <p><b>Note:</b> don’t forget to add “<code>-cdrom &lt;image.iso&gt;</code>” to the
               QEMU command line if you will read driver from CD</p>
           </li>
 
           <li>
             QEMU will use the new wctablet device to control your pointer, but Windows knows
-            nothing about it yet. So go to QEMU Monitor and switch your pointing device to mouse:<br><br>
+            nothing about it yet. So go to QEMU Monitor and switch your pointing device to mouse:
             <ol>
               <li>
-                Press Ctrl + Alt + 2, to go into the monitor:<br><br>
+                Press Ctrl + Alt + 2, to go into the monitor:
 
-                <img alt="wctablet Terminal QEMU" src="/assets/images/wctabletTerminalQemu.png"/>
+                <img alt="wctablet Terminal QEMU" src="/assets/images/wctabletTerminalQemu.png" />
               </li>
 
               <li>
@@ -113,16 +188,16 @@
 
         <ol start="5">
           <li>
-            When Windows have been booted, open the needed folder in a file manager:<br><br>
+            When Windows have been booted, open the needed folder in a file manager:
 
-            <img alt="QEMU File Manager" src="/assets/images/qemuFileManager.png"/>
+            <img alt="QEMU File Manager" src="/assets/images/qemuFileManager.png" />
           </li>
 
           <li>
-            Run <code>setup.exe</code> and follow the instructions:<br><br>
+            Run <code>setup.exe</code> and follow the instructions:
 
-            <img alt="QEMU Wacom Setup 1" src="/assets/images/qemuWacomSetup1.png"/>
-            <img alt="QEMU Wacom Setup 2" src="/assets/images/qemuWacomSetup2.png"/>
+            <img alt="QEMU Wacom Setup 1" src="/assets/images/qemuWacomSetup1.png" />
+            <img alt="QEMU Wacom Setup 2" src="/assets/images/qemuWacomSetup2.png" />
           </li>
 
           <li>
@@ -130,8 +205,8 @@
           </li>
 
           <li>
-            Now you will have mouse integration each time when you run your virtual machine as follows:<br>
-            <code>qemu-system-i386 -m 32 -hda image.qcow -chardev<br> wctablet,id=somename -serial chardev:somename</code>
+            Now you will have mouse integration each time when you run your virtual machine as follows:
+            <p><code>qemu-system-i386 -m 32 -hda image.qcow -chardev<br> wctablet,id=somename -serial chardev:somename</code></p>
           </li>
         </ol>
       </mat-card-content>
@@ -167,7 +242,7 @@
           to show user two cursors moving with different speed:
         </p>
 
-        <img alt="OS mouse integration" src="/assets/images/os_mouse"/>
+        <img alt="OS mouse integration" src="/assets/images/os_mouse" />
       </mat-card-content>
 
       <mat-card-header>

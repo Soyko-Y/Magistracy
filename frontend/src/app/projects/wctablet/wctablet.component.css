@@ -69,5 +69,5 @@ li > ol li:before {
 }
 
 li, img {
-    margin-bottom: 1em;
+    margin: 1em;
 }
