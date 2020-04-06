@@ -71,3 +71,12 @@ li > ol li:before {
 li, img {
     margin: 1em;
 }
+
+mat-card-title a {
+    color: #000;
+    visibility:hidden;
+}
+
+mat-card-title:hover a {
+    visibility:visible;
+}
